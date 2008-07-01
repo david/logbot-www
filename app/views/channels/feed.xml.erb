@@ -13,14 +13,13 @@
   <%
     # TODO: Code in views. Yuck. 
     unless @events.empty?
-      finished = false
-      d = time_to_date(@events.first.created_at)
       i = 0
-      until finished || !@events[i] -%>
+      while @events[i]
+        d = time_to_date(@events[i].created_at) -%>
         <entry>
           <title><%=h d -%></title>
-          <link href="http://freenodelogs.org/channels/<%=h @channel -%>/<%= d.strftime "%Y/%M/%d" -%>"/>
-          <id>http://freenodelogs.org/channels/<%=h @channel -%>/<%= d.strftime "%Y/%M/%d" -%></id>
+          <link href="http://freenodelogs.org/channels/<%=h @channel -%>/<%= d.strftime "%Y/%m/%d" -%>"/>
+          <id>http://freenodelogs.org/channels/<%=h @channel -%>/<%= d.strftime "%Y/%m/%d" -%></id>
           <updated><%=h date_to_time(d) -%></updated>
           <content type="xhtml">
             <div xmlns="http://www.w3.org/1999/xhtml">
@@ -34,12 +33,7 @@
 
                   i += 1
                 end
-
-                if @events[i]
-                  d = time_to_date(@events[i].created_at)
-                else
-                  finished = true
-                end -%>
+              -%>
             </table>
           </div>
         </content>
