@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>#<%=h @channel %> feed @ freenodelogs.org</title>
   <link rel="self" href="http://freenodelogs.org/channels/<%=h @channel %>/feed"/>
@@ -7,9 +8,10 @@
   <author>
     <name>Everyone at #<%=h @channel %> </name>
   </author>
-  <id>http://freenodelogs.org/channels/#<%=h @channel %></id>
+  <id>http://freenodelogs.org/channels/<%=h @channel %></id>
 
   <%
+    # TODO: Code in views. Yuck. 
     unless @events.empty?
       finished = false
       d = time_to_date(@events.first.created_at)

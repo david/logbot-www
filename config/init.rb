@@ -103,6 +103,8 @@ use_orm :datamapper
 # use_test :rspec
 
 
+require 'merb_helpers/time_dsl'
+
 #
 # ==== Set up your basic configuration
 #
@@ -114,6 +116,8 @@ Merb::Config.use do |c|
 
   c[:session_secret_key]  = '4e707bbc1bbf8a24fb78b31cb9e9ff1daaf1eed9'
   c[:session_store] = 'cookie'
+
+  c[:feed_time_span] = 5.days
 end
 
 
