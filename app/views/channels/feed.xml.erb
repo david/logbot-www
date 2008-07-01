@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>#<%=h @channel %> feed @ freenodelogs.org</title>
+  <link rel="self" href="http://freenodelogs.org/channels/<%=h @channel %>/feed"/>
+  <link rel="alternate" href="http://freenodelogs.org/channels/<%=h @channel %>"/>
+  <updated><%=h @updated %></updated>
+  <author>
+    <name>Everyone at #<%=h @channel %> </name>
+  </author>
+  <id>http://freenodelogs.org/channels/#<%=h @channel %></id>
+
+  <%
+    unless @events.empty?
+      finished = false
+      d = time_to_date(@events.first.created_at)
+      i = 0
+      until finished || !@events[i] -%>
+        <entry>
+          <title><%=h d -%></title>
+          <link href="http://freenodelogs.org/channels/<%=h @channel -%>/<%= d.strftime "%Y/%M/%d" -%>"/>
+          <id>http://freenodelogs.org/channels/<%=h @channel -%>/<%= d.strftime "%Y/%M/%d" -%></id>
+          <updated><%=h date_to_time(d) -%></updated>
+          <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <table><% 
+                while @events[i] && time_to_date(@events[i].created_at) == d 
+                %><tr>
+                    <td><%=h @events[i].created_at.strftime("%H:%M:%S") -%></td>
+                    <td><%=h @events[i].nick -%></td>
+                    <td><%=h @events[i].content -%></td>
+                  </tr><% 
+
+                  i += 1
+                end
+
+                if @events[i]
+                  d = time_to_date(@events[i].created_at)
+                else
+                  finished = true
+                end -%>
+            </table>
+          </div>
+        </content>
+      </entry>
+    <% end -%>
+  <% end -%>
+</feed>
+
