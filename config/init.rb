@@ -157,6 +157,3 @@ end
 # And the result is:
 # irb> "wife".plural
 # => wives
-
-require 'builder'
-require 'merb-builder'
