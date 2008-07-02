@@ -15,13 +15,16 @@ class Channels < Application
     @channel = params[:channel]
 
     now = Time.now
-    before = now - Merb::Config[:feed_time_span]
+    today = Time.mktime now.year, now.month, now.day
+    before = today - Merb::Config[:feed_time_span]
 
     @events = LogBot::Event.all \
       :channel => "##{@channel}", 
       :created_at.gte => before,
-      :created_at.lte => now,
+      :created_at.lte => today,
       :type => :message
+
+    @updated = @events.last.created_at
     render
   end
 end

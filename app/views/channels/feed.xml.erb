@@ -4,39 +4,39 @@
   <title>#<%=h @channel %> feed @ freenodelogs.org</title>
   <link rel="self" href="http://freenodelogs.org/channels/<%=h @channel %>/feed"/>
   <link rel="alternate" href="http://freenodelogs.org/channels/<%=h @channel %>"/>
-  <updated><%=h @updated %></updated>
+  <updated><%=h @updated.strftime "%Y-%m-%dT%H:%M:%SZ" %></updated>
   <author>
     <name>Everyone at #<%=h @channel %> </name>
   </author>
   <id>http://freenodelogs.org/channels/<%=h @channel %></id>
 
   <%
-    # TODO: Code in views. Yuck. 
-    unless @events.empty?
-      i = 0
-      while @events[i]
-        d = time_to_date(@events[i].created_at) -%>
-        <entry>
-          <title><%=h d -%></title>
-          <link href="http://freenodelogs.org/channels/<%=h @channel -%>/<%= d.strftime "%Y/%m/%d" -%>"/>
-          <id>http://freenodelogs.org/channels/<%=h @channel -%>/<%= d.strftime "%Y/%m/%d" -%></id>
-          <updated><%=h date_to_time(d) -%></updated>
-          <content type="xhtml">
-            <div xmlns="http://www.w3.org/1999/xhtml">
-              <table><% 
-                while @events[i] && time_to_date(@events[i].created_at) == d 
-                %><tr>
-                    <td><%=h @events[i].created_at.strftime("%H:%M:%S") -%></td>
-                    <td><%=h @events[i].nick -%></td>
-                    <td><%=h @events[i].content -%></td>
-                  </tr><% 
+  # TODO: Code in views. Yuck. 
+  unless @events.empty?
+    i = 0
+    while @events[i]
+      d = time_to_date(@events[i].created_at) -%>
+      <entry>
+        <title><%=h d -%></title>
+        <link href="http://freenodelogs.org/channels/<%=h @channel -%>/<%= d.strftime "%Y/%m/%d" -%>"/>
+        <id>http://freenodelogs.org/channels/<%=h @channel -%>/<%= d.strftime "%Y/%m/%d" -%></id>
+        <content type="xhtml">
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <table><% 
+              while @events[i] && time_to_date(@events[i].created_at) == d 
+              %><tr>
+                  <td><%=h @events[i].created_at.strftime("%H:%M:%S") -%></td>
+                  <td><%=h @events[i].nick -%></td>
+                  <td><%=h @events[i].content -%></td>
+                </tr><% 
 
-                  i += 1
-                end
-              -%>
+                i += 1
+              end
+            -%>
             </table>
           </div>
         </content>
+        <updated><%=h @events[i - 1].created_at.strftime "%Y-%m-%dT%H:%M:%SZ" -%></updated>
       </entry>
     <% end -%>
   <% end -%>
