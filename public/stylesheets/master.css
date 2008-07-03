@@ -12,6 +12,11 @@ div, body {
   padding: 0;
 }
 
+td {
+  margin: 0;
+  padding: 0;
+}
+
 #log {
   width: 60%;
   float: left;
@@ -27,24 +32,20 @@ div, body {
   padding: 10px;
 }
 
-dl.chat {
+table.chat {
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-.chat dt {
-  width: 10%;
-  float: left;
+td.n {
   margin: 0;
   font-weight: bold;
   text-align: right;
   padding: .1em 5px .1em 10px;
 }
 
-.chat dd {
-  width: 80%;
-  float: left;
+td.c {
   margin: 0;
   padding: .1em 10px .1em 5px;
 }

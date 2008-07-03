@@ -9,7 +9,7 @@ class Channels < Application
   def show
     @channel = params[:channel]
 
-    now     = Time.now
+    now     = Time.mktime 2008, 6, 30
     today   = Time.mktime now.year, now.month, now.day
     @events = LogBot::Event.all \
         :channel => "##{@channel}", 
