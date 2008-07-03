@@ -11,7 +11,8 @@ class Channels < Application
   end
 
   def feed
-    only_provides :xml
+    only_provides :atom
+
     @channel = params[:channel]
 
     now = Time.now

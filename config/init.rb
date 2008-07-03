@@ -161,3 +161,5 @@ end
 # And the result is:
 # irb> "wife".plural
 # => wives
+
+Merb.add_mime_type :atom, :to_atom, %w[application/atom+xml]
