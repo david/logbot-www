@@ -7,5 +7,11 @@ module Merb
       def date_to_time(date)
         Time.parse date.to_s
       end
+
+      def colored_nick(nick)
+        @colored_nicks ||= {}
+
+        @colored_nicks[nick] ||= "#%02x%02x%02x" % [rand(256), rand(256), rand(256)]
+      end
     end
 end

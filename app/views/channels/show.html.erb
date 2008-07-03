@@ -1,3 +1,6 @@
-<h1>Channels controller, show action</h1>
-
-<p>Edit this file in <tt>app/views/channels/show.html.erb</tt></p>
+<dl class="chat">
+<% for event in @events -%>
+  <dt style="color: <%= colored_nick(event.nick) %>;"><%=h event.nick -%></dt>
+  <dd><%=h event.content -%></dd>
+<% end %>
+</dl>

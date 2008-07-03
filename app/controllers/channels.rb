@@ -7,6 +7,17 @@ class Channels < Application
   end
 
   def show
+    @channel = params[:channel]
+
+    now     = Time.now
+    today   = Time.mktime now.year, now.month, now.day
+    @events = LogBot::Event.all \
+        :channel => "##{@channel}", 
+        :created_at.gte => today,
+        :type => :message
+
+    max_nick_size = @events.inject(0) { |max, e| max > e.nick.length ? max : e.nick.length }
+
     render
   end
 
@@ -26,6 +37,7 @@ class Channels < Application
       :type => :message
 
     @updated = @events.last.created_at
+
     render
   end
 end
