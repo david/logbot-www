@@ -1,3 +1,5 @@
+/* TODO: Use relative units. */
+
 html, body {
   height: 100%;
   width: 100%;
@@ -22,7 +24,7 @@ td {
   float: left;
   padding: 0 10px;
   background-color: #fff;
-  font: 10px Tahoma,Verdana,sans-serif;
+  font: 11px Tahoma,Verdana,sans-serif;
 }
 
 #meta {
