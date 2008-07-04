@@ -13,5 +13,13 @@ module Merb
 
         @colored_nicks[nick] ||= "#%02x%02x%02x" % [rand(256), rand(256), rand(256)]
       end
+
+      def content(content)
+        linkify_uris(h(content))
+      end
+
+      def linkify_uris(content)
+        content.gsub(%r{\b(\w+://\S+\w+/?)(?=\W?)}, '<a href="\1">\1</a>')
+      end
     end
 end
