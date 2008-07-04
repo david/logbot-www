@@ -41,14 +41,13 @@ table.chat {
 }
 
 td.n {
-  margin: 0;
+  vertical-align: top;
   font-weight: bold;
   text-align: right;
   padding: .1em 5px .1em 10px;
 }
 
 td.c {
-  margin: 0;
   padding: .1em 10px .1em 5px;
 }
 
