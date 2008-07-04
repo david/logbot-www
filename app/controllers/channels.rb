@@ -9,14 +9,21 @@ class Channels < Application
   def show
     @channel = params[:channel]
 
-    now     = Time.mktime 2008, 6, 30
-    today   = Time.mktime now.year, now.month, now.day
-    @events = LogBot::Event.all \
-        :channel => "##{@channel}", 
-        :created_at.gte => today,
-        :type => :message
+    year, month, day = *params.values_at(:year, :month, :day)
 
-    max_nick_size = @events.inject(0) { |max, e| max > e.nick.length ? max : e.nick.length }
+    if year && month && day
+      _begin = Time.mktime year, month, day
+      _end   = _begin + 1.day
+    else
+      _begin = Time.now - 1.hour
+      _end   = Time.now
+    end
+
+    @events = LogBot::Event.all \
+      :channel => "##{@channel}",
+      :type => :message,
+      :created_at.gte => _begin,
+      :created_at.lt => _end
 
     render
   end

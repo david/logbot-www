@@ -22,10 +22,12 @@
 Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do |r|
   # RESTful routes
-  r.match '/channels' do |c|
-    c.params[:controller] = 'Channels'
-    c.match('/:channel').to(:action => 'show')
-    c.match('/:channel/feed').to(:action => 'feed')
+  r.match '/channels' do |cs|
+    cs.params[:controller] = 'Channels'
+    cs.match('/:channel') do |c|
+      c.match('/:year/:month/:day').to(:action => 'show')
+      c.match('/feed').to(:action => 'feed')
+    end.to(:action => 'show')
   end.to(:controller => 'Channels', :action => 'index')
 
   # Change this for your home page to be available at /
