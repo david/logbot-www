@@ -22,12 +22,11 @@
         <id>http://freenodelogs.org/channels/<%=h @channel -%>/<%= d.strftime "%Y/%m/%d" -%></id>
         <content type="xhtml">
           <div xmlns="http://www.w3.org/1999/xhtml">
-            <table><% 
+            <table style="width: 100%; margin: 0; padding: 0;"><% 
               while @events[i] && time_to_date(@events[i].created_at) == d 
               %><tr>
-                  <td><%=h @events[i].created_at.strftime("%H:%M:%S") -%></td>
-                  <td><%=h @events[i].nick -%></td>
-                  <td><%=h @events[i].content -%></td>
+                  <td style="vertical-align: top; margin: 0; font-weight: bold; text-align: right; padding: .1em 5px .1em 10px; color: <%= colored_nick(@events[i].nick) %>;"><%=h @events[i].nick -%></td>
+                  <td title="<%=h @events[i].created_at.strftime("%H:%M:%S") -%>" style="margin: 0; padding: .1em 10px .1em 5px"><%= content(@events[i].content) -%></td>
                 </tr><% 
 
                 i += 1
