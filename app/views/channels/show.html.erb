@@ -1,8 +1,8 @@
 <table class="chat">
 <% for event in @events -%>
   <tr>
-    <td class="n" style="color: <%= colored_nick(event.nick) %>;"><%=h event.nick -%></dt>
-    <td class="c"><%= content(event.content) -%></dd>
+    <td class="n" style="color: <%= colored_nick(event.nick) %>;"><%=h event.nick -%></td>
+    <td class="c"><%= content(event.content) -%></td>
   </tr>
 <% end %>
 </table>
