@@ -33,7 +33,7 @@ class Channels < Application
     @events = LogBot::Event.all \
       :channel => "##{@channel}", 
       :created_at.gte => before,
-      :created_at.lte => today,
+      :created_at.lt => today,
       :type => :message
 
     @updated = @events.last.created_at
