@@ -2,7 +2,7 @@
 <% for event in @events -%>
   <tr>
     <td class="n" style="color: <%= colored_nick(event.nick) %>;"><%=h event.nick -%></td>
-    <td class="c"><%= content(event.content) -%></td>
+    <td title="<%=h event.created_at.strftime("%H:%M:%S") -%>" class="c"><%= content(event.content) -%></td>
   </tr>
 <% end %>
 </table>
