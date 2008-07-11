@@ -18,10 +18,14 @@ describe Merb::ChannelsHelper do
     end
 
     it "should not include final punctuation in the links" do
-      linkify_uris("http://one.two.com/something/else.").
-        should == '<a href="http://one.two.com/something/else">http://one.two.com/something/else</a>.'
-      linkify_uris("http://one.two.com/something/else/.").
-        should == '<a href="http://one.two.com/something/else/">http://one.two.com/something/else/</a>.'
+      linkify_uris("http://one.two.com/something/else. ").
+        should == '<a href="http://one.two.com/something/else">http://one.two.com/something/else</a>. '
+      linkify_uris("http://one.two.com/something/else/. ").
+        should == '<a href="http://one.two.com/something/else/">http://one.two.com/something/else/</a>. '
+      linkify_uris("http://one.two.com/something/else. ").
+        should == '<a href="http://one.two.com/something/else">http://one.two.com/something/else</a>. '
+      linkify_uris("http://one.two.com/something/else/. ").
+        should == '<a href="http://one.two.com/something/else/">http://one.two.com/something/else/</a>. '
     end
 
     it "should include punctuation in the links, when it belongs to the url" do
@@ -34,11 +38,18 @@ describe Merb::ChannelsHelper do
         should == 'yadda yadda <a href="http://one.two.com/something/else.html">http://one.two.com/something/else.html</a>, yadda'
     end
 
-    it "should linkify parenthesized uris correctly" do
+    it "should linkify delimited uris correctly" do
       linkify_uris("(http://one.two.com/something/else.html)").
         should == '(<a href="http://one.two.com/something/else.html">http://one.two.com/something/else.html</a>)'
       linkify_uris("(http://one.two.com/something/else.html/)").
         should == '(<a href="http://one.two.com/something/else.html/">http://one.two.com/something/else.html/</a>)'
+    end
+
+    it "should not linkify html entities" do
+      linkify_uris("http://one.two.com/something/else.html&quot;").
+        should == '<a href="http://one.two.com/something/else.html">http://one.two.com/something/else.html</a>&quot;'
+      linkify_uris("http://one.two.com/something/else.html/&quot;").
+        should == '<a href="http://one.two.com/something/else.html/">http://one.two.com/something/else.html/</a>&quot;'
     end
   end
 end

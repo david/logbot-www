@@ -19,7 +19,10 @@ module Merb
       end
 
       def linkify_uris(content)
-        content.gsub(%r{\b(\w+://\S+\w+/?)(?=\W?)}, '<a href="\1">\1</a>')
+        content.gsub %r{\b(\w+://\S+\w+/?)} do |m| 
+          match, entity, _ = *m.partition(/&\w+$/)
+          "<a href=\"#{match}\">#{match}</a>#{entity}#{_}"
+        end
       end
     end
 end
